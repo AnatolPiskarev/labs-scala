@@ -23,13 +23,11 @@ object listsSummary {
     println()
     sum( list3, list1, c) //case 7 - different lenght
     println()
-    sum(list2, list5, c) //case 7 - list with one element and empty list
+    sum(list2, list5, c) //case 8 - list with one element and empty list
 
   }
   def sum(a: List[Int], b: List[Int], c: (Int, Int) => Int): List[Int] = (a, b) match {
     case (x :: xs, y :: ys) => c(x, y) :: sum(xs, ys, c)
-    case (_,  y :: ys) => sum(ys, List.empty,c );
-    case (x :: xs,_) =>  sum(xs, List.empty, c);
     case _ => List();
   }
 
