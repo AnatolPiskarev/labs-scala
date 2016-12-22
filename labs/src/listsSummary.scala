@@ -9,28 +9,31 @@ object listsSummary {
     val list3: List[Int] = List(8, 7, 6, 5);
     val list4: List[Int] = List(8, 7, 6, 5, 4, 3, 2, 1);
     val list5: List[Int] = List();
-
-    sum(zip(_, _),list1, list4) //case 1 - lists with identical lenght
+    sum(list1, list4, c) //case 1 - lists with identical lenght
     println()
-    sum(zip(_, _),list2, list1) //case 2 - list with only one element;
+    sum(list2, list1, c) //case 2 - list with only one element;
     println()
-    sum(zip(_, _),list5, list5) //case 3 - empty lists
+    sum(list5, list5, c) //case 3 - empty lists
     println()
-    sum(zip(_, _),list1, list5) //case 4 - not empty and  empty lists
+    sum(list1, list5, c) //case 4 - not empty and  empty lists
     println()
-    sum(zip(_, _),list5, list4) //case 5 - empty and not empty lists
+    sum(list5, list4, c) //case 5 - empty and not empty lists
     println()
-    sum(zip(_, _),list1, list3) //case 6 - different lenght
+    sum(list1, list3, c) //case 6 - different lenght
     println()
-    sum(zip(_, _), list3, list1) //case 7 - different lenght
+    sum( list3, list1, c) //case 7 - different lenght
     println()
-    sum(zip(_, _), list2, list5) //case 7 - list with one element and empty list
+    sum(list2, list5, c) //case 7 - list with one element and empty list
 
   }
-  def zip(a: List[Int], b: List[Int], c: (Int, Int) => Int): List[Int] = (a, b) match {
-    case (x :: xs, y :: ys) => c(x, y) :: zip(xs, ys, c)
-    case _ => List()
-    case (_,  y :: ys) => y :: zip(ys, List.empty);
+  def sum(a: List[Int], b: List[Int], c: (Int, Int) => Int): List[Int] = (a, b) match {
+    case (x :: xs, y :: ys) => c(x, y) :: sum(xs, ys, c)
+    case (_,  y :: ys) => c(0, y)::sum(ys, List.empty,c );
+    case (x :: xs,_) => c(x, 0) :: sum(xs, List.empty, c);
     case _ => List();
+  }
+
+  def c(x: Int, y: Int): Int = {
+    x + y
   }
 }
