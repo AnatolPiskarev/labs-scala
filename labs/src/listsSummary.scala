@@ -27,15 +27,10 @@ object listsSummary {
     sum(zip(_, _), list2, list5) //case 7 - list with one element and empty list
 
   }
-  def sum(f:(List[Int], List[Int]) => List[Int], l1: List[Int], l2: List[Int] ) = {
-    f(l1, l2).foreach(e => print(e))
+  def zip(a: List[Int], b: List[Int], c: (Int, Int) => Int): List[Int] = (a, b) match {
+    case (x :: xs, y :: ys) => c(x, y) :: zip(xs, ys, c)
+    case _ => List()
+    case (_,  y :: ys) => y :: zip(ys, List.empty);
+    case _ => List();
   }
-
-  def zip(a: List[Int], b: List[Int]): List[Int] =
-    (a, b) match {
-      case (x :: xs, y :: ys) => x + y :: zip(xs, ys);
-      case (x :: xs, _) => x :: zip(xs, List.empty);
-      case (_,  y :: ys) => y :: zip(ys, List.empty);
-      case _ => List();
-      }
 }
