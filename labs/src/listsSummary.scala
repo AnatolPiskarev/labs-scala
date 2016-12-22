@@ -28,8 +28,8 @@ object listsSummary {
   }
   def sum(a: List[Int], b: List[Int], c: (Int, Int) => Int): List[Int] = (a, b) match {
     case (x :: xs, y :: ys) => c(x, y) :: sum(xs, ys, c)
-    case (_,  y :: ys) => c(0, y)::sum(ys, List.empty,c );
-    case (x :: xs,_) => c(x, 0) :: sum(xs, List.empty, c);
+    case (_,  y :: ys) => sum(ys, List.empty,c );
+    case (x :: xs,_) =>  sum(xs, List.empty, c);
     case _ => List();
   }
 
