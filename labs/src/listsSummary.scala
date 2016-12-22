@@ -10,34 +10,32 @@ object listsSummary {
     val list4: List[Int] = List(8, 7, 6, 5, 4, 3, 2, 1);
     val list5: List[Int] = List();
 
-    sum(list1, list4) //case 1 - lists with identical lenght
+    sum(zip(_, _),list1, list4) //case 1 - lists with identical lenght
     println()
-    sum(list2, list1) //case 2 - list with only one element;
+    sum(zip(_, _),list2, list1) //case 2 - list with only one element;
     println()
-    sum(list5, list5) //case 3 - empty lists
+    sum(zip(_, _),list5, list5) //case 3 - empty lists
     println()
-    sum(list1, list5) //case 4 - not empty and  empty lists
+    sum(zip(_, _),list1, list5) //case 4 - not empty and  empty lists
     println()
-    sum(list5, list4) //case 5 - empty and not empty lists
+    sum(zip(_, _),list5, list4) //case 5 - empty and not empty lists
     println()
-    sum(list1, list3) //case 6 - different lenght
+    sum(zip(_, _),list1, list3) //case 6 - different lenght
     println()
-    sum(list3, list1) //case 7 - different lenght
+    sum(zip(_, _), list3, list1) //case 7 - different lenght
     println()
-    sum(list2, list5) //case 7 - list with one element and empty list
+    sum(zip(_, _), list2, list5) //case 7 - list with one element and empty list
 
   }
-
-  def sum(l1: List[Int], l2: List[Int]) {
-   def sumAcc(l1: List[Int], l2: List[Int], i: Int, res: Int): Int = {
-     (l1, l2, i) match {
-       case (a,b,it) if a.length > i && b.length > i => sumAcc(a, b, it+1, res + a(i) + b(i));
-       case (a,b,it) if a.length > i && b.length <= i => sumAcc(a, b, it+1,res + a(i));
-       case (a,b,it) if a.length <= i && b.length > i => sumAcc(a, b, it+1, res+ b(i));
-       case (a,b,it) if a.length <= i && b.length <= i => res
-   }
-    }
-    println(sumAcc(l1,l2,0,0))
+  def sum(f:(List[Int], List[Int]) => List[Int], l1: List[Int], l2: List[Int] ) = {
+    f(l1, l2).foreach(e => print(e))
   }
 
+  def zip(a: List[Int], b: List[Int]): List[Int] =
+    (a, b) match {
+      case (x :: xs, y :: ys) => x + y :: zip(xs, ys);
+      case (x :: xs, _) => x :: zip(xs, List.empty);
+      case (_,  y :: ys) => y :: zip(ys, List.empty);
+      case _ => List();
+      }
 }
